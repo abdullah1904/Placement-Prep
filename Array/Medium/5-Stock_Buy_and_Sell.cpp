@@ -3,17 +3,18 @@
 using namespace std;
 
 int maxProfit(vector<int>& prices) {
-    int minPrice = prices[0], maxProfit = 0;
-    for (int i = 1; i < prices.size(); i++) {
-        int cost = prices[i] - minPrice;
-        if (cost > maxProfit) {
-            maxProfit = cost;
+    int left = 0, right = 1, maxProfit = 0;
+    while (right < prices.size()) {
+        if(prices[left] < prices[right]){
+            int profit = prices[right] - prices[left];
+            maxProfit = max(maxProfit, profit);
+        } 
+        else {
+            left = right;
         }
-        if (prices[i] < minPrice) {
-            minPrice = prices[i];
-        }
+        right++;
     }
-    return maxProfit;      
+    return maxProfit;
 }
 
 
